@@ -14,20 +14,24 @@ class MainViewModel : ViewModel() {
     fun loginAsRegularUser() {
         currentUser = User(
             name = "Joaquín",
-            age = 25,
+            age = "",
             country = "El Salvador",
             isAdmin = false,
-            currentLevel = 5
+            currentLevel = 5,
+            email = "",
+            password = ""
         )
     }
 
     fun loginAsAdmin() {
         currentUser = User(
             name = "Admin",
-            age = 30,
+            age = "",
             country = "El Salvador",
             isAdmin = true,
-            currentLevel = 10
+            currentLevel = 10,
+            email = "",
+            password = ""
         )
     }
 }

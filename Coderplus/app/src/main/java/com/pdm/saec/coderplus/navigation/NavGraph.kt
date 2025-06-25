@@ -26,8 +26,7 @@ fun NavGraph(
         composable(NavigationRoutes.Welcome) {
             WelcomeScreen(
                 onStartClick = {
-                    viewModel.loginAsRegularUser()
-                    navController.navigate(NavigationRoutes.Levels)
+                    navController.navigate(NavigationRoutes.Registro)
                 },
                 onGoogleClick = {
                     viewModel.loginAsAdmin()
@@ -81,10 +80,11 @@ fun NavGraph(
             MainScaffold(navController) { modifier ->
                 val user = viewModel.currentUser ?: User(
                     name = "Invitado",
-                    age = 0,
+                    age = "",
                     country = "Desconocido",
                     isAdmin = false,
-                    currentLevel = 0
+                    email = "",
+                    password = ""
                 )
 
                 ProfileScreen(
@@ -137,6 +137,29 @@ fun NavGraph(
                 )
 
             }
+        }
+
+        composable(NavigationRoutes.Registro) {
+            val newUser = viewModel.currentUser ?: User(
+                name = "",
+                age = "",
+                country = "",
+                isAdmin = false,
+                email = "",
+                password = ""
+            )
+            Registro(
+                currentUser = newUser,
+                onSave = { updatedUser ->
+                    viewModel.currentUser = updatedUser
+                    navController.navigate(NavigationRoutes.Levels) {
+                        popUpTo(NavigationRoutes.Welcome) { inclusive = true }
+                    }
+                },
+                onCancel = {
+                    navController.popBackStack()
+                }
+            )
         }
     }
 }
